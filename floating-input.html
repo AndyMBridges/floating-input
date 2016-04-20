@@ -1,0 +1,131 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Floating Input - Andy Bridges</title>
+  <meta name="description" content="Floating Input">
+  <meta name="author" content="Andy Bridges">
+
+  <style>
+    input, .floating-placeholder {
+      font-family: Helvetica, Arial, sans-serif;
+      font-size: 20px;
+      line-height: 2.6em;
+      height: 2.6em;
+      margin: 0;
+      padding: 0;
+      width: 100%;
+    }
+    .floating-placeholder.textarea-float {
+      height:150px;
+    }
+    .floating-placeholder input:focus + label, .floating-placeholder textarea:focus + label {
+      color: blue;
+    }
+    .floating-placeholder input:focus, .floating-placeholder textarea:focus {
+      border-color: blue;
+    }
+    .floating-placeholder input[value] + label, .floating-placeholder textarea[value] + label {
+      color: red;
+    }
+    .floating-placeholder {
+      position: relative;
+      margin-bottom:1.2em;
+    }
+    .floating-placeholder input {
+      font-size: 20px;
+      border: none;
+      outline: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: block;
+      background: transparent;
+      z-index: 2;
+      border-bottom: 2px solid #ccc;
+      text-indent: 20px;
+    }
+    .floating-placeholder textarea {
+      height:150px;
+      line-height:1.2em;
+      margin-top:20px;
+      padding:0 20px;
+      outline: none;
+      resize: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: block;
+      background: transparent;
+      border-bottom: 2px solid #ccc;
+    }
+    .floating-placeholder label {
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 20px;
+      font-size: 20px;
+      z-index: 1;
+      -moz-transform-origin: 0 0em;
+      -ms-transform-origin: 0 0em;
+      -webkit-transform-origin: 0 0em;
+      transform-origin: 0 0em;
+      -moz-transition: -moz-transform 160ms, color 200ms;
+      -o-transition: -o-transform 160ms, color 200ms;
+      -webkit-transition: -webkit-transform 160ms, color 200ms;
+      transition: transform 160ms, color 200ms;
+      -moz-transform: scale(1, 1) rotateY(0);
+      -ms-transform: scale(1, 1) rotateY(0);
+      -webkit-transform: scale(1, 1) rotateY(0);
+      transform: scale(1, 1) rotateY(0);
+      color: #999;
+    }
+    .floating-placeholder-float label {
+      -moz-transform: scale(0.70, 0.70) rotateY(0);
+      -ms-transform: scale(0.70, 0.70) rotateY(0);
+      -webkit-transform: scale(0.70, 0.70) rotateY(0);
+      transform: scale(0.70, 0.70) rotateY(0);
+      line-height:1.6;
+    }
+    .floating-placeholder-float input {
+      line-height: 3.4em;
+    }
+  </style>
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+</head>
+
+<body>
+    <form id="floating-input" method="post" action="#">
+        <div class="floating-placeholder">
+            <input type="text" id="name" name="name" required>
+            <label for="name">Name</label>
+        </div>
+        <div class="floating-placeholder">
+            <input type="email" id="email" name="email" required>
+            <label for="email">Email</label>
+        </div>
+    </form>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            function updateText(event){
+                var input=$(this);
+                setTimeout(function(){
+                    var val=input.val();
+                    if(val!="")
+                        input.parent().addClass("floating-placeholder-float");
+                    else
+                        input.parent().removeClass("floating-placeholder-float");
+                },1)
+            }
+            $(".floating-placeholder input, .floating-placeholder textarea").keydown(updateText);
+            $(".floating-placeholder input, .floating-placeholder textarea").change(updateText);
+        });
+    </script>
+</body>
+</html>
